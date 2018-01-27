@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"bufio"
 	"os"
 	"log"
@@ -11,7 +10,7 @@ import (
 	"monitor"
 )
 
-func listen() {
+func listen(queue chan monitor.Message) {
 	reader := bufio.NewReader(os.Stdin)
 	for {
 		header, err := monitor.ReadHeader(reader)
@@ -26,7 +25,7 @@ func listen() {
 		}
 		// 只处理进程异常退出事件
 		if header.EventName == "PROCESS_STATE_EXITED" {
-			notify.Push(header, payload)
+			notify.Push(header, payload, queue)
 		}
 	}
 }
@@ -34,14 +33,15 @@ func listen() {
 func main() {
 	c, _ := config.Load("./config.yaml")
 
-	fmt.Println(c)
+	var queue chan monitor.Message
+	
+	queue = make(chan monitor.Message, 10)
 
-	notify.Init(c)
-
+	go notify.Start(c, queue)
 	defer func() {
 		if err := recover(); err != nil {
 			log.Print("panic", err)
 		}
 	}()
-	listen()
+	listen(queue)
 }

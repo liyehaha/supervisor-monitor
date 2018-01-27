@@ -9,18 +9,13 @@ import (
 	"monitor"
 )
 
-var queue chan monitor.Message
+
 
 type Notifiable interface {
 	Send(monitor.Message, *config.Config) error
 }
 
-func Init(c *config.Config) {
-	queue = make(chan monitor.Message, 10)
-	go start(c)
-}
-
-func Push(header *monitor.Header, payload *monitor.Payload) {
+func Push(header *monitor.Header, payload *monitor.Payload, queue chan monitor.Message) {
 	queue <- monitor.Message{header, payload}
 }
 
@@ -39,7 +34,7 @@ func send(notifyHandler Notifiable, message monitor.Message, c *config.Config) {
 	}
 }
 
-func start(c *config.Config) {
+func Start(c *config.Config, queue chan monitor.Message) {
 	var message monitor.Message
 	var notifyHandler Notifiable
 	for {
