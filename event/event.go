@@ -7,6 +7,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 )
 
 // Message 消息格式
@@ -39,6 +40,7 @@ type Payload struct {
 	FromState   string
 	Expected    int
 	Pid         int
+	Time		string
 }
 
 // Fields
@@ -80,6 +82,7 @@ func ParsePayload(payload string) (*Payload, error) {
 	p.FromState = fields["from_state"]
 	p.Expected, _ = strconv.Atoi(fields["expected"])
 	p.Pid, _ = strconv.Atoi(fields["pid"])
+	p.Time = time.Now().Format(time.Kitchen)
 
 	return p, nil
 }
