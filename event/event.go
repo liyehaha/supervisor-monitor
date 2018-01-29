@@ -17,7 +17,7 @@ type Message struct {
 }
 
 func (msg *Message) String() string {
-	return fmt.Sprintf("Host: %s\nProcess: %s\nPID: %d\nEXITED FROM state: %s", msg.Payload.Ip, msg.Payload.ProcessName, msg.Payload.Pid, msg.Payload.FromState)
+	return fmt.Sprintf("Host: %s\nProcess: %s\nPID: %d\nEXITED FROM state: %s\nHappend Time: %s", msg.Payload.Ip, msg.Payload.ProcessName, msg.Payload.Pid, msg.Payload.FromState, msg.Payload.Time)
 
 }
 
