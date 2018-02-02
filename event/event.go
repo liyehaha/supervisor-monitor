@@ -3,7 +3,6 @@ package event
 import (
 	"errors"
 	"fmt"
-	"github.com/ouqiang/supervisor-event-listener/utils"
 	"os"
 	"strconv"
 	"strings"
@@ -76,7 +75,7 @@ func ParsePayload(payload string) (*Payload, error) {
 		return p, ErrParsePayload
 	}
 	hostname, _ := os.Hostname()
-	p.Ip = fmt.Sprintf("%s(%s)", utils.GetLocalIp(), hostname)
+	p.Ip = fmt.Sprintf("%s(%s)", os.Getenv("HOST_IP"), os.Getenv("HOST_NAME"))
 	p.ProcessName = fields["processname"]
 	p.GroupName = fields["groupname"]
 	p.FromState = fields["from_state"]
