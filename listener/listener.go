@@ -4,8 +4,8 @@ import (
 	"bufio"
 	"errors"
 	"fmt"
-	"github.com/ouqiang/supervisor-event-listener/event"
-	"github.com/ouqiang/supervisor-event-listener/listener/notify"
+	"github.com/liyehaha/supervisor-event-listener/event"
+	"github.com/liyehaha/supervisor-event-listener/listener/notify"
 	"log"
 	"os"
 )
