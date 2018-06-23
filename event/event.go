@@ -74,7 +74,7 @@ func ParsePayload(payload string) (*Payload, error) {
 	if len(fields) == 0 {
 		return p, ErrParsePayload
 	}
-	hostname, _ := os.Hostname()
+	//hostname, _ := os.Hostname()
 	p.Ip = fmt.Sprintf("%s(%s)", os.Getenv("HOST_IP"), os.Getenv("HOST_NAME"))
 	p.ProcessName = fields["processname"]
 	p.GroupName = fields["groupname"]
