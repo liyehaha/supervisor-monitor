@@ -42,6 +42,19 @@ func listen() {
 		if header.EventName == "PROCESS_STATE_EXITED" {
 			notify.Push(header, payload)
 		}
+
+		if header.EventName == "PROCESS_STATE_FATAL" {
+			notify.Push(header, payload)
+		}
+
+		if header.EventName == "PROCESS_STATE_BACKOFF" {
+			notify.Push(header, payload)
+		}
+
+		if header.EventName == "PROCESS_STATE_UNKNOWN" {
+			notify.Push(header, payload)
+		}
+
 		success()
 	}
 }
